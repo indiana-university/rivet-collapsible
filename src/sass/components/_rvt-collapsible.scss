@@ -1,0 +1,60 @@
+.rvt-collapsible {
+  &__title {
+    font-weight: 700;
+    font-size: $ts-16;
+  }
+
+  &__title button {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    width: 100%;
+    padding: 0;
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 $xxs/2 #ffffff, 0 0 0 $xxs #006298;
+    }
+  }
+
+  &__heading--icon-right button {
+    flex-direction: row-reverse;
+
+    span {
+      margin-right: auto;
+    }
+  }
+
+  &__title button[aria-expanded="true"] {
+    svg {
+      transform: rotate(90deg);
+    }
+  }
+
+  &__content[aria-hidden="true"] {
+    display: none;
+  }
+
+  &--panel {
+    border: 1px solid #ddd;
+    border-radius: $xxs;
+  }
+
+  &--panel &__title button {
+    background-color: #f7f7f7;
+    border-radius: $xxs;
+    padding: .75rem;
+  }
+
+  &--panel &__title button[aria-expanded="true"] {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  &--panel &__content {
+    padding: $sm;
+    border-top: 1px solid #ddd;
+  }
+}
