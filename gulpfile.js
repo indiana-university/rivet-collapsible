@@ -11,7 +11,6 @@ const cssnano = require('gulp-cssnano');
 const runSequence = require('run-sequence');
 const del = require('del');
 const package = require('./package.json');
-const ghPages = require('gulp-gh-pages');
 
 // Create the string for the verion number banner.
 const banner = '/*! ' + package.name + '- @version v' + package.version + ' */' + '\n' + '\n';
@@ -126,11 +125,6 @@ gulp.task('clean', ['css:clean', 'js:clean']);
 
 // Run release tasks
 gulp.task('release', ['css:release', 'js:release']);
-
-gulp.task('deploy', ['release'], function() {
-  return gulp.src('dist/**/*')
-    .pipe(ghPages());
-})
 
 // Default dev server
 gulp.task('default', ['browser-sync']);
