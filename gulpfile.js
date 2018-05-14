@@ -22,7 +22,7 @@ gulp.task('sass', function() {
 });
 
 gulp.task('js', function() {
-  return gulp.src('src/js/collapsible.js')
+  return gulp.src('src/js/**/*.js')
     .pipe(gulp.dest('dist/js/'))
     .pipe(browserSync.stream());
 });
