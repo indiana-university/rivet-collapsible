@@ -17,7 +17,7 @@
    * @param {HTMLButtonElement} element
    * @param {String} attr any HTML atribute with a true/false string value
    */
-  var _toggleState = function (element, attr) {
+  var _toggleState = function(element, attr) {
     /**
      * Setting variable like this is a nice way to convert
      * the true/false attribute value from a string to a boolean.
@@ -26,7 +26,7 @@
     element.setAttribute(attr, !initialState);
   }
 
-  var _handleClick = function (event) {
+  var _handleClick = function(event) {
     var toggleButton = event.target.closest('[data-collapsible-toggle]');
 
     // Bail if the target was not a toggle button.
@@ -41,7 +41,7 @@
    * @param {HTMLButtonElement} button
    * @param {Function} callback
    */
-  var toggle = function (button, callback) {
+  var toggle = function(button, callback) {
     // Get the corresponding panel content
     var content = document.getElementById(
       button.getAttribute('data-collapsible-toggle')
@@ -60,11 +60,11 @@
     }
   }
 
-  var destroy = function () {
+  var destroy = function() {
     document.removeEventListener('click', _handleClick, false);
   }
 
-  var init = function () {
+  var init = function() {
     // Destroy any current initialization
     destroy();
 
