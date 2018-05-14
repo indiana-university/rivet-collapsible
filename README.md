@@ -2,6 +2,7 @@
 An accessible expand-and-collapse widget for Rivet
 
 ## To-do
+- [ ] Add implementation docs to README
 - [ ] Test UMD implementation e.g. `const Collapsible = require('rivet-collapsible.js')`
 - [X] Add Github pages demo
 - [X] Add minnification step to build process for CSS and JS
