@@ -1,4 +1,17 @@
-var Collapsible = (function () {
+(function (root, factory) {
+  if ( typeof define === 'function' && define.amd ) {
+    define([], function () {
+      return factory(root);
+    });
+  } else if ( typeof exports === 'object' ) {
+    module.exports = factory(root);
+  } else {
+    root.Collapsible = factory(root);
+  }
+})(typeof global !== 'undefined' ? global : typeof window !== 'undefined' ? window : this, function (window) {
+
+  'use strict';
+
   var init = function () {
     document.addEventListener('click', function (e) {
       let toggleButton = e.target.closest('[data-collapsible-toggle]');
@@ -52,4 +65,4 @@ var Collapsible = (function () {
     init: init,
     toggle: toggle
   }
-})();
+});
