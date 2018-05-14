@@ -1,9 +1,9 @@
 (function (root, factory) {
-  if ( typeof define === 'function' && define.amd ) {
+  if (typeof define === 'function' && define.amd) {
     define([], function () {
       return factory(root);
     });
-  } else if ( typeof exports === 'object' ) {
+  } else if (typeof exports === 'object') {
     module.exports = factory(root);
   } else {
     root.Collapsible = factory(root);
@@ -13,14 +13,21 @@
   'use strict';
 
   var init = function () {
-    document.addEventListener('click', function (e) {
-      let toggleButton = e.target.closest('[data-collapsible-toggle]');
+    // Destroy any current initialization
+    destroy();
 
-      // Bail if the target was not a toggle button.
-      if (!toggleButton) return;
+    // Set up event delegation
+    document.addEventListener('click', _handleClick, false);
+  }
 
-      toggle(toggleButton);
-    });
+  var _handleClick = function (event) {
+    var toggleButton = event.target.closest('[data-collapsible-toggle]');
+
+    // Bail if the target was not a toggle button.
+    if (!toggleButton) return;
+
+    // Toggle the target collapsible
+    toggle(toggleButton);
   }
 
   /**
@@ -61,8 +68,13 @@
     }
   }
 
+  var destroy = function () {
+    document.removeEventListener('click', _handleClick, false);
+  }
+
   return {
     init: init,
-    toggle: toggle
+    toggle: toggle,
+    destroy: destroy
   }
 });
