@@ -19,24 +19,25 @@ const banner = '/*! ' + package.name + ' - @version v' + package.version + ' */'
 gulp.task('browser-sync', function () {
   browserSync.init({
     server: {
-      baseDir: "./dist"
+      baseDir: "./docs"
     }
   });
 
   gulp.watch('src/sass/**/*.scss', ['sass']);
   gulp.watch('src/js/**/*.js', ['js']);
-  gulp.watch('dist/index.html', ['html']);
+  gulp.watch('src/index.html', ['html']);
 });
 
 gulp.task('html', function() {
-  return gulp.src('dist/index.html')
+  return gulp.src('src/index.html')
+    .pipe(gulp.dest('docs/'))
     .pipe(browserSync.stream());
 });
 
 gulp.task('sass', function() {
   return gulp.src('src/sass/**/*.scss')
     .pipe(sass({ outputStyle: 'expanded' }).on('error', sass.logError))
-    .pipe(gulp.dest('dist/css/'))
+    .pipe(gulp.dest('docs/css/'))
     .pipe(browserSync.stream());
 });
 
@@ -79,9 +80,10 @@ gulp.task('css:release', function(done) {
   runSequence('css:clean', 'sass:release', 'css:prefix', 'css:minify', 'css:header')
 });
 
+// This task is used to watch durring development only.
 gulp.task('js', function() {
   return gulp.src('src/js/**/*.js')
-    .pipe(gulp.dest('dist/js/'))
+    .pipe(gulp.dest('docs/js/'))
     .pipe(browserSync.stream());
 });
 
