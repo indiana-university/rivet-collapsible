@@ -6,28 +6,27 @@
   <title>Rivet Collapsible Component</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://assets.uits.iu.edu/css/rivet/1.0.0/rivet.min.css">
-  <link rel="stylesheet" type="text/css" media="screen" href="css/rvt-collapsible.css" />
-  <style>
-    body {
-      padding: 3rem;
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" media="screen" href="css/rivet-collapsible.css" />
 </head>
 <body>
-  <div class="rvt-container rvt-container--junior rvt-container--center" id="wrapper">
+  <main class="rvt-container rvt-container--junior rvt-container--center rvt-m-top-xxl" id="wrapper">
+    <h1 class="rvt-ts-36 rvt-lh-title rvt-text-bold">Rivet collapsible</h1>
+    <p class="rvt-ts-23 rvt-m-top-xxs rvt-m-bottom-xxl">An accessible expand-and-collapse widget for Rivet</p>
+    <h2 class="rvt-ts-20 rvt-text-bold rvt-m-bottom-lg">Default collapsible</h2>
     <div class="rvt-collapsible">
-      <h1 class="rvt-collapsible__title">
+      <h3 class="rvt-collapsible__title">
         <button data-collapsible-toggle="users-1" aria-expanded="false">
           <svg role="img" class="rvt-m-right-xs" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
             <path fill="currentColor" d="M5.5,15a1,1,0,0,1-.77-1.64L9.2,8,4.73,2.64A1,1,0,0,1,6.27,1.36L11.13,7.2a1.25,1.25,0,0,1,0,1.61L6.27,14.64A1,1,0,0,1,5.5,15ZM9.6,8.48h0Zm0-1h0Z"/>
           </svg>
           <span>Users</span>
         </button>
-      </h1>
+      </h3>
       <div class="rvt-collapsible__content rvt-p-top-sm" id="users-1" aria-hidden="true">
         <p class="rvt-m-all-remove">Nostrum fugit a natus. Corporis voluptates ut odio omnis nobis voluptas. Est dolor et eum quis deleniti explicabo autem est magnam. Unde expedita ab quia maxime quia. Qui voluptas distinctio ipsa laborum laboriosam.</p>
       </div>
     </div>
+    <h3 class="rvt-ts-20 rvt-text-bold rvt-m-top-xxl rvt-m-bottom-lg">Collapsible panel</h3>
     <div class="rvt-collapsible rvt-collapsible--panel rvt-m-top-xl">
       <h1 class="rvt-collapsible__title">
         <button data-collapsible-toggle="settings" aria-expanded="false">
@@ -42,8 +41,8 @@
           est magnam. Unde expedita ab quia maxime quia. Qui voluptas distinctio ipsa laborum laboriosam.</p>
       </div>
     </div>
-  </div>
-  <script src="js/collapsible.js"></script>
+  </main>
+  <script src="js/rivet-collapsible.js"></script>
   <script>
     Collapsible.init();
   </script>
