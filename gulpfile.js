@@ -25,7 +25,12 @@ gulp.task('browser-sync', function () {
 
   gulp.watch('src/sass/**/*.scss', ['sass']);
   gulp.watch('src/js/**/*.js', ['js']);
-  gulp.watch('dist/index.html');
+  gulp.watch('dist/index.html', ['html']);
+});
+
+gulp.task('html', function() {
+  return gulp.src('dist/index.html')
+    .pipe(browserSync.stream());
 });
 
 gulp.task('sass', function() {
@@ -43,12 +48,6 @@ gulp.task('sass:release', function () {
 
 gulp.task('css:clean', function () {
   return del(['dist/css/**/*']);
-});
-
-gulp.task('css:header', function () {
-  return gulp.src('dist/css/rivet.css')
-    .pipe(header(banner, { package: package }))
-    .pipe(gulp.dest('dist/css/'))
 });
 
 gulp.task('css:minify', function () {
@@ -95,16 +94,6 @@ gulp.task('js:copy', function() {
     .pipe(gulp.dest('dist/js/'));
 });
 
-gulp.task('js:header', function () {
-  gulp.src('dist/js/' + package.name + '.js')
-    .pipe(header(banner, { package: package }))
-    .pipe(gulp.dest('dist/js/'));
-
-  gulp.src('dist/js/' + package.name + '.min.js')
-    .pipe(header(banner, { package: package }))
-    .pipe(gulp.dest('dist/js/'));
-});
-
 gulp.task('js:minify', function (done) {
   pump([
     gulp.src('dist/js/' + package.name + '.js'),
@@ -114,6 +103,16 @@ gulp.task('js:minify', function (done) {
   ],
     done
   );
+});
+
+gulp.task('js:header', function () {
+  gulp.src('dist/js/' + package.name + '.js')
+    .pipe(header(banner, { package: package }))
+    .pipe(gulp.dest('dist/js/'));
+
+  gulp.src('dist/js/' + package.name + '.min.js')
+    .pipe(header(banner, { package: package }))
+    .pipe(gulp.dest('dist/js/'));
 });
 
 gulp.task('js:release', function(done) {

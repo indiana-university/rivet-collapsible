@@ -17,6 +17,10 @@
       outline: none;
       box-shadow: 0 0 0 $xxs/2 #ffffff, 0 0 0 $xxs #006298;
     }
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   &__heading--icon-right button {

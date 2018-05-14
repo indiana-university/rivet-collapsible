@@ -1,5 +1,3 @@
-/*! rivet-collapsible - @version v0.1.0-alpha */
-
 (function (root, factory) {
   if (typeof define === 'function' && define.amd) {
     define([], function () {
@@ -14,24 +12,6 @@
 
   'use strict';
 
-  var init = function () {
-    // Destroy any current initialization
-    destroy();
-
-    // Set up event delegation
-    document.addEventListener('click', _handleClick, false);
-  }
-
-  var _handleClick = function (event) {
-    var toggleButton = event.target.closest('[data-collapsible-toggle]');
-
-    // Bail if the target was not a toggle button.
-    if (!toggleButton) return;
-
-    // Toggle the target collapsible
-    toggle(toggleButton);
-  }
-
   /**
    *
    * @param {HTMLButtonElement} element
@@ -44,6 +24,16 @@
      */
     var initialState = element.getAttribute(attr) === 'true' || false;
     element.setAttribute(attr, !initialState);
+  }
+
+  var _handleClick = function (event) {
+    var toggleButton = event.target.closest('[data-collapsible-toggle]');
+
+    // Bail if the target was not a toggle button.
+    if (!toggleButton) return;
+
+    // Toggle the target collapsible
+    toggle(toggleButton);
   }
 
   /**
@@ -72,6 +62,14 @@
 
   var destroy = function () {
     document.removeEventListener('click', _handleClick, false);
+  }
+
+  var init = function () {
+    // Destroy any current initialization
+    destroy();
+
+    // Set up event delegation
+    document.addEventListener('click', _handleClick, false);
   }
 
   return {
