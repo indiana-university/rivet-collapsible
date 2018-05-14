@@ -1,5 +1,3 @@
-/*! rivet-collapsible- @version v0.1.0-alpha */
-
 /*! Rivet - @version v1.0.0 */
 .rvt-collapsible__title {
   font-weight: 700;
@@ -8,12 +6,8 @@
 
 .rvt-collapsible__title button {
   margin: 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   background-color: transparent;
   border: none;
   width: 100%;
@@ -22,15 +16,11 @@
 
 .rvt-collapsible__title button:focus {
   outline: none;
-  -webkit-box-shadow: 0 0 0 0.125rem #ffffff, 0 0 0 0.25rem #006298;
-          box-shadow: 0 0 0 0.125rem #ffffff, 0 0 0 0.25rem #006298;
+  box-shadow: 0 0 0 0.125rem #ffffff, 0 0 0 0.25rem #006298;
 }
 
 .rvt-collapsible__heading--icon-right button {
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: reverse;
-      -ms-flex-direction: row-reverse;
-          flex-direction: row-reverse;
+  flex-direction: row-reverse;
 }
 
 .rvt-collapsible__heading--icon-right button span {
@@ -38,8 +28,7 @@
 }
 
 .rvt-collapsible__title button[aria-expanded="true"] svg {
-  -webkit-transform: rotate(90deg);
-          transform: rotate(90deg);
+  transform: rotate(90deg);
 }
 
 .rvt-collapsible__content[aria-hidden="true"] {

@@ -13,10 +13,10 @@ const del = require('del');
 const package = require('./package.json');
 
 // Create the string for the verion number banner.
-const banner = '/*! ' + package.name + '- @version v' + package.version + ' */' + '\n' + '\n';
+const banner = '/*! ' + package.name + ' - @version v' + package.version + ' */' + '\n' + '\n';
 
 // Development server
-gulp.task('browser-sync', ['sass', 'js'], function () {
+gulp.task('browser-sync', function () {
   browserSync.init({
     server: {
       baseDir: "./dist"

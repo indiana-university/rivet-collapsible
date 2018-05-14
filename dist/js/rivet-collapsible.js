@@ -1,5 +1,3 @@
-/*! rivet-collapsible- @version v0.1.0-alpha */
-
 (function (root, factory) {
   if (typeof define === 'function' && define.amd) {
     define([], function () {
