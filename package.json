@@ -4,7 +4,8 @@
   "description": "An accessible expand-and-collapse widget for Rivet",
   "main": "dist/js/collapsible.js",
   "scripts": {
-    "start": "gulp"
+    "start": "gulp",
+    "build": "gulp release"
   },
   "dependencies": {
     "rivet-uits": "^1.0.0"
