@@ -2,7 +2,7 @@
   "name": "rivet-collapsible",
   "version": "0.1.0-alpha",
   "description": "An accessible expand-and-collapse widget for Rivet",
-  "main": "dist/js/collapsible.js",
+  "main": "dist/js/rivet-collapsible.js",
   "scripts": {
     "start": "gulp",
     "build": "gulp release"
