@@ -1,6 +1,5 @@
 /*! Rivet - @version v1.0.0 */
 .rvt-collapsible__title {
-  font-weight: 700;
   font-size: 1rem;
 }
 
@@ -20,15 +19,11 @@
 }
 
 .rvt-collapsible__title button:hover {
-  text-decoration: underline;
+  background-color: #eeeeee;
 }
 
-.rvt-collapsible__heading--icon-right button {
-  flex-direction: row-reverse;
-}
-
-.rvt-collapsible__heading--icon-right button span {
-  margin-right: auto;
+.rvt-collapsible__title button svg {
+  margin-right: 0.5rem;
 }
 
 .rvt-collapsible__title button[aria-expanded="true"] svg {
@@ -47,7 +42,11 @@
 .rvt-collapsible--panel .rvt-collapsible__title button {
   background-color: #f7f7f7;
   border-radius: 0.25rem;
-  padding: .75rem;
+  padding: 0.75rem;
+}
+
+.rvt-collapsible--panel .rvt-collapsible__title button:hover {
+  background-color: #eeeeee;
 }
 
 .rvt-collapsible--panel .rvt-collapsible__title button[aria-expanded="true"] {
