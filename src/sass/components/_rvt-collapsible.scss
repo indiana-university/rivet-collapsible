@@ -1,6 +1,5 @@
 .rvt-collapsible {
   &__title {
-    font-weight: 700;
     font-size: $ts-16;
   }
 
@@ -15,19 +14,16 @@
 
     &:focus {
       outline: none;
-      box-shadow: 0 0 0 $xxs/2 #ffffff, 0 0 0 $xxs #006298;
+      box-shadow: 0 0 0 $xxs/2 $color-background,
+                  0 0 0 $xxs $color-action;
     }
 
     &:hover {
-      text-decoration: underline;
+      background-color: $color-black--100;
     }
-  }
 
-  &__heading--icon-right button {
-    flex-direction: row-reverse;
-
-    span {
-      margin-right: auto;
+    svg {
+      margin-right: $xs;
     }
   }
 
@@ -47,9 +43,13 @@
   }
 
   &--panel &__title button {
-    background-color: #f7f7f7;
+    background-color: $color-background-subtle;
     border-radius: $xxs;
-    padding: .75rem;
+    padding: $sm*.75;
+
+    &:hover {
+      background-color: $color-black--100;
+    }
   }
 
   &--panel &__title button[aria-expanded="true"] {
