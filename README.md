@@ -10,7 +10,7 @@ The Rivet collapsible add-on requires the use of the core Rivet CSS. You can fin
 
 ### 1. Include the CCS and JavaScript in your page
 ```html
-<link rel="stylesheet" href="dis/css/rivet-collapsible.min.css">
+<link rel="stylesheet" href="dist/css/rivet-collapsible.min.css">
 <script src="dist/js/rivet-collapsible.min.js"></script>
 ```
 
