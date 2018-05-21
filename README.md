@@ -62,8 +62,8 @@ The Rivet collapsible component exposes a handful of methods you can use to prog
 
 
 ## To-do
-- [ ] Add implementation docs to README
-- [ ] Test UMD implementation e.g. `const Collapsible = require('rivet-collapsible.js')`
+- [X] Add implementation docs to README
+- [X] Test UMD implementation e.g. `const Collapsible = require('rivet-collapsible.js')`
 - [ ] Create NPM package and documentation for including in a project
 - [X] Add Github pages demo
 - [X] Add minnification step to build process for CSS and JS
