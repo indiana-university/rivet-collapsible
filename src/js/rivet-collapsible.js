@@ -12,51 +12,97 @@
 
   'use strict';
 
+  var DATA_ATTR = 'data-collapsible';
+  var ID_ERROR = 'There is no element with a corresponding id attribute to toggle.';
+
+  /**
+   * Creates a new custom event and stores a reference
+   * to the unique "data-collapsible" attribute in the custom
+   * event's options "detail" property.
+   *
+   * More here:
+   * https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Creating_and_triggering_events#Adding_custom_data_%E2%80%93_CustomEvent()
+   *
+   */
+
+  var _fireCustomEvent = function(element, eventName) {
+    var event = new CustomEvent(eventName, {
+      bubbles: true,
+      detail: {
+        name: function () {
+          return element.getAttribute(DATA_ATTR);
+        }
+      }
+    });
+
+    // Distpatch the event
+    element.dispatchEvent(event);
+  }
+
   /**
    *
-   * @param {HTMLButtonElement} element
-   * @param {String} attr any HTML atribute with a true/false string value
+   * @param {HTMLElement} collapsibleButton
+   * @param {Function} callback
    */
-  var _toggleState = function(element, attr) {
-    /**
-     * Setting variable like this is a nice way to convert
-     * the true/false attribute value from a string to a boolean.
-     */
-    var initialState = element.getAttribute(attr) === 'true' || false;
-    element.setAttribute(attr, !initialState);
+  var open = function(collapsibleButton, callback) {
+    collapsibleButton.setAttribute('aria-expanded', 'true');
+
+    _fireCustomEvent(collapsibleButton, 'collapsibleOpen');
+
+    var content = document.getElementById(
+      collapsibleButton.getAttribute(DATA_ATTR)
+    );
+
+    if (!content) {
+      throw new Error(ID_ERROR);
+    }
+
+    content.setAttribute('aria-hidden', 'false');
+
+    if (callback && typeof callback === 'function') {
+      callback();
+    }
+  }
+
+  /**
+   *
+   * @param {HTMLElement} collapsibleButton
+   * @param {Function} callback
+   */
+  var close = function (collapsibleButton, callback) {
+    collapsibleButton.setAttribute('aria-exapnded', 'false');
+
+    var content = document.getElementById(
+      collapsibleButton.getAttribute(DATA_ATTR)
+    );
+
+    if (!content) {
+      throw new Error(ID_ERROR);
+    }
+
+    collapsibleButton.setAttribute('aria-expanded', 'false')
+    content.setAttribute('aria-hidden', 'true');
+
+    _fireCustomEvent(collapsibleButton, 'collapsibleClose');
+
+    if (callback && typeof callback === 'function') {
+      callback();
+    }
   }
 
   var _handleClick = function(event) {
-    var toggleButton = event.target.closest('[data-collapsible-toggle]');
+    var toggleButton = event.target.closest('[' + DATA_ATTR + ']');
 
     // Bail if the target was not a toggle button.
     if (!toggleButton) return;
 
-    // Toggle the target collapsible
-    toggle(toggleButton);
-  }
+    var collapsibleState = toggleButton.getAttribute('aria-expanded');
 
-  /**
-   *
-   * @param {HTMLButtonElement} button
-   * @param {Function} callback
-   */
-  var toggle = function(button, callback) {
-    // Get the corresponding panel content
-    var content = document.getElementById(
-      button.getAttribute('data-collapsible-toggle')
-    );
-
-    if (!content) {
-      throw new Error('There is no element with a corresponding id attribute to toggle.');
-    }
-
-    // Toggle state
-    _toggleState(button, 'aria-expanded');
-    _toggleState(content, 'aria-hidden');
-
-    if (typeof callback === 'function') {
-      callback();
+    // If the swithch is off, set the checked state to "true"
+    if (collapsibleState === 'false') {
+      open(toggleButton);
+    } else {
+      close(toggleButton);
     }
   }
 
@@ -74,7 +120,8 @@
 
   return {
     init: init,
-    toggle: toggle,
+    open: open,
+    close: close,
     destroy: destroy
   }
 });

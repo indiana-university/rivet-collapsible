@@ -31,7 +31,7 @@
     <p class="rvt-m-bottom-xxl">The Rivet collapsible component is based on the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details" target="_blank" rel="noopener">HTML Details Element</a>.</p>
     <div class="rvt-collapsible">
       <h3 class="rvt-collapsible__title">
-        <button data-collapsible-toggle="users" aria-expanded="false">
+        <button data-collapsible="users" aria-expanded="false">
           <svg role="img" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
             <path fill="currentColor" d="M5.5,15a1,1,0,0,1-.77-1.64L9.2,8,4.73,2.64A1,1,0,0,1,6.27,1.36L11.13,7.2a1.25,1.25,0,0,1,0,1.61L6.27,14.64A1,1,0,0,1,5.5,15ZM9.6,8.48h0Zm0-1h0Z"/>
           </svg>
@@ -46,7 +46,7 @@
     <h2 class="rvt-ts-20 rvt-text-bold rvt-m-top-xxl rvt-m-bottom-lg">Collapsible panel</h2>
     <div class="rvt-collapsible rvt-collapsible--panel rvt-m-top-xxl">
       <h3 class="rvt-collapsible__title">
-        <button data-collapsible-toggle="settings" aria-expanded="false">
+        <button data-collapsible="settings" aria-expanded="false">
           <svg role="img" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
             <path fill="currentColor" d="M5.5,15a1,1,0,0,1-.77-1.64L9.2,8,4.73,2.64A1,1,0,0,1,6.27,1.36L11.13,7.2a1.25,1.25,0,0,1,0,1.61L6.27,14.64A1,1,0,0,1,5.5,15ZM9.6,8.48h0Zm0-1h0Z"/>
           </svg>
@@ -62,7 +62,7 @@
     <hr class="rvt-m-top-xxl">
     <h2 class="rvt-ts-20 rvt-text-bold rvt-m-top-xl">JavaScript API</h2>
     <p>The Rivet collapsible component comes with a couple of methods you can use to programmatically control the component. The <code>.init()</code> method
-    is called by default the first <code>rivet-collapsible.js</code> is loaded. An event listener is attached to the document that listens for clicks on buttons with the <code>data-collapsible-toggle</code> attribute. With that in mind you should be able to dynamically add collapsibles to the DOM without having the re-initialize the component.</p>
+    is called by default the first <code>rivet-collapsible.js</code> is loaded. An event listener is attached to the document that listens for clicks on buttons with the <code>data-collapsible</code> attribute. With that in mind you should be able to dynamically add collapsibles to the DOM without having the re-initialize the component.</p>
 
     <table class="rvt-m-top-xl">
       <caption class="sr-only">Collapsible JavaScript API</caption>
@@ -80,8 +80,16 @@
           </td>
         </tr>
         <tr>
-          <td><code>Collapsible.toggle(button, callback)</code></td>
-          <td>Accepts a collapsible toggle button element <code>[data-collapsible-toggle]</code> and an optional callback function that is run after the collapsible is toggled open/closed.</td>
+          <td>
+            <code>Collapsible.open(collapsibleButton, callback)</code>
+          </td>
+          <td>Open description</td>
+        </tr>
+        <tr>
+          <td>
+            <code>Collapsible.close(collapsibleButton, callback)</code>
+          </td>
+          <td>Close description</td>
         </tr>
         <tr>
           <td><code>Collapsible.destroy()</code></td>
@@ -93,6 +101,14 @@
   <script src="./js/rivet-collapsible.js"></script>
   <script>
     Collapsible.init();
+
+    document.addEventListener('collapsibleOpen', function(event) {
+      console.log(`Custom switch **Open** event triggered from: ${event.detail.name()}`);
+    });
+
+    document.addEventListener('collapsibleClose', function (event) {
+      console.log(`Custom switch **Close** event triggered from: ${event.detail.name()}`);
+    });
   </script>
 </body>
 </html>
