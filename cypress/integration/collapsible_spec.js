@@ -1,9 +1,10 @@
 const COLLAPSIBLE_BUTTON = '[data-collapsible="default-collapsible"]';
 const COLLAPSIBLE_CONTENT = '#default-collapsible';
+const DEV_SERVER = 'http://localhost:3000';
 
 describe('Rivet collapsible interactions', function() {
   beforeEach(function () {
-    cy.visit('http://localhost:3000')
+    cy.visit(DEV_SERVER)
   })
 
   it('Click the default Rivet collapsible toggle button', function() {
@@ -27,7 +28,7 @@ describe('Rivet collapsible interactions', function() {
 
 describe('Collapsible API methods', function() {
   beforeEach(function () {
-    cy.visit('http://localhost:3000')
+    cy.visit(DEV_SERVER)
   })
 
   it('Call the .open() method', function () {
