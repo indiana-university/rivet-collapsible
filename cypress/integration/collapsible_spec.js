@@ -7,7 +7,6 @@ describe('Rivet collapsible interactions', function() {
   })
 
   it('Click the default Rivet collapsible toggle button', function() {
-
     cy.get(COLLAPSIBLE_BUTTON)
       .click()
       .should('have.attr', 'aria-expanded', 'true');
