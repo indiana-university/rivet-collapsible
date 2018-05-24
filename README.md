@@ -60,8 +60,20 @@ The Rivet collapsible component exposes a handful of methods you can use to prog
 | `Collapsible.toggle(button, callback)` | Accepts a collapsible toggle button element `[data-collapsible]` and an optional callback function that is run after the collapsible is toggled open/closed. |
 | `Collapsible.destroy()`                | Destroys the current initialization of the collapsible component and removes it's event listener.                                                                 |
 
+## Testing
+We're using [Cypress](https://docs.cypress.io/guides/overview/why-cypress.html) for integration testing. To run the tests:
+
+### Testing with the Cypress GUI
+1. Type `npm run cypress:open` in your terminal. This will open the Cypress automation client/GUI.
+2. Select the test you want to run from the list of test, usually called `componentname_spec.js` where `componentname` is the name of the component you're testing.
+3. The test will start runing in a new chrome window.
+4. [Refer to the Cypress documentation](https://docs.cypress.io/guides/overview/why-cypress.html) for more info.
+
+### Testing on the command line only
+Alternatively, you can run the Cypress integration tests on the _command line only_ by typing `npm run test` in you terminal. This will run the test and report any failures in the terminal output. It will also record a video session of the tests and save it to `cypress/videos`.
+
 ## To-do
-- [ ] Add docs for testing with Cypress
+- [X] Add docs for testing with Cypress
 - [ ] Create NPM package and documentation for including in a project
 - [X] Add implementation docs to README
 - [X] Test UMD implementation e.g. `const Collapsible = require('rivet-collapsible.js')`
