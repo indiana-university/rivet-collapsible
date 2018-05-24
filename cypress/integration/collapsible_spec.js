@@ -36,6 +36,13 @@ describe('Collapsible API methods', function() {
       const toggleButton = win.document.querySelector(COLLAPSIBLE_BUTTON);
       win.Collapsible.open(toggleButton);
     });
+
+    cy.get(COLLAPSIBLE_BUTTON)
+      .should('have.attr', 'aria-expanded', 'true');
+
+    cy.get(COLLAPSIBLE_CONTENT)
+      .should('have.attr', 'aria-hidden', 'false')
+      .and('be.visible');
   });
 
   it('Call the .close() method', function () {
@@ -43,6 +50,13 @@ describe('Collapsible API methods', function() {
       const toggleButton = win.document.querySelector(COLLAPSIBLE_BUTTON);
       win.Collapsible.close(toggleButton);
     });
+
+    cy.get(COLLAPSIBLE_BUTTON)
+      .should('have.attr', 'aria-expanded', 'false');
+
+    cy.get(COLLAPSIBLE_CONTENT)
+      .should('have.attr', 'aria-hidden', 'true')
+      .and('be.hidden');
   });
 })
 
