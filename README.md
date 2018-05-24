@@ -64,13 +64,18 @@ The Rivet collapsible component exposes a handful of methods you can use to prog
 We're using [Cypress](https://docs.cypress.io/guides/overview/why-cypress.html) for integration testing. To run the tests:
 
 ### Testing with the Cypress GUI
+1. First you need to start the development server by typing `npm run start` in your terminal.
 1. Type `npm run cypress:open` in your terminal. This will open the Cypress automation client/GUI.
 2. Select the test you want to run from the list of test, usually called `componentname_spec.js` where `componentname` is the name of the component you're testing.
 3. The test will start runing in a new chrome window.
 4. [Refer to the Cypress documentation](https://docs.cypress.io/guides/overview/why-cypress.html) for more info.
 
 ### Testing on the command line only
-Alternatively, you can run the Cypress integration tests on the _command line only_ by typing `npm run test` in you terminal. This will run the test and report any failures in the terminal output. It will also record a video session of the tests and save it to `cypress/videos`.
+Alternatively, you can run the Cypress integration tests on the _command line only_.
+
+1. First you need to start the development server by typing `npm run start` in your terminal.
+2. Then type `npm run test`.
+3. This will run the test and report any failures in the terminal output. It will also record a video session of the tests and save it to `cypress/videos`.
 
 ## To-do
 - [X] Add docs for testing with Cypress
