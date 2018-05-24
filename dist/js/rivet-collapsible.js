@@ -49,8 +49,6 @@
   var open = function(collapsibleButton, callback) {
     collapsibleButton.setAttribute('aria-expanded', 'true');
 
-    _fireCustomEvent(collapsibleButton, 'collapsibleOpen');
-
     var content = document.getElementById(
       collapsibleButton.getAttribute(DATA_ATTR)
     );
@@ -60,6 +58,8 @@
     }
 
     content.setAttribute('aria-hidden', 'false');
+
+    _fireCustomEvent(collapsibleButton, 'collapsibleOpen');
 
     if (callback && typeof callback === 'function') {
       callback();
