@@ -57,7 +57,8 @@ The Rivet collapsible component exposes a handful of methods you can use to prog
 | Method                               | Description                                                                                                                                                       |
 |--------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `Collapsible.init()`                   | Initializes the collapsible component                                                                                                                             |
-| `Collapsible.toggle(button, callback)` | Accepts a collapsible toggle button element `[data-collapsible]` and an optional callback function that is run after the collapsible is toggled open/closed. |
+| `Collapsible.open(collapsibleButton, callback)` | Accepts a collapsible toggle button element `[data-collapsible]` and an optional callback function that is run after the collapsible is toggled opened. |
+| `Collapsible.close(collapsibleButton, callback)` | Accepts a collapsible toggle button element `[data-collapsible]` and an optional callback function that is run after the collapsible is toggled closed. |
 | `Collapsible.destroy()`                | Destroys the current initialization of the collapsible component and removes it's event listener.                                                                 |
 
 ## Testing
