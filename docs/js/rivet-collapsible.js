@@ -14,6 +14,12 @@
 
   var DATA_ATTR = 'data-collapsible';
   var ID_ERROR = 'There is no element with a corresponding id attribute to toggle.';
+  var keys = {
+    up: 38,
+    down: 40,
+    home: 36,
+    end: 35
+  };
 
   /**
    * Creates a new custom event and stores a reference
@@ -47,8 +53,6 @@
   var open = function(collapsibleButton, callback) {
     collapsibleButton.setAttribute('aria-expanded', 'true');
 
-    _fireCustomEvent(collapsibleButton, 'collapsibleOpen');
-
     var content = document.getElementById(
       collapsibleButton.getAttribute(DATA_ATTR)
     );
@@ -58,6 +62,8 @@
     }
 
     content.setAttribute('aria-hidden', 'false');
+
+    _fireCustomEvent(collapsibleButton, 'collapsibleOpen');
 
     if (callback && typeof callback === 'function') {
       callback();
@@ -106,8 +112,61 @@
     }
   }
 
+  var _handleKeyup = function(event) {
+    if (event.keyCode === keys.up || event.keyCode === keys.down) {
+      var accordionParent = event.target.closest('[data-accordion]');
+
+      if (!accordionParent) return;
+
+      var accordionToggles = accordionParent.querySelectorAll('[' + DATA_ATTR + ']');
+
+      /**
+       * Warn if there is only one collapsible inside the accrodion.
+       * In this case a plain collapsible will do.
+       */
+      if (accordionToggles.length < 2) {
+        console.warn('An accordions should contain *at least two* accordion toggles with the "data-collapsible" attribute');
+      }
+
+      // Convert the nodeList into an array
+      var accordionTogglesArr = Array.prototype.slice.call(accordionToggles);
+
+      // Store a refernce to the current toggle
+      var currentToggle = document.activeElement;
+
+      // Find the next toggle index based on current activeElement
+      var nextToggle = accordionTogglesArr.indexOf(currentToggle) + 1;
+
+      // Find the previous toggle index based on current activeElement
+      var prevToggle = accordionTogglesArr.indexOf(currentToggle) - 1;
+
+      // Handle moving foucs based on up or down arrow key
+      switch (event.keyCode) {
+        // Up arrow key
+        case keys.up:
+          // If the current active toggle is the first bail
+          if (accordionTogglesArr[prevToggle] === undefined) return;
+
+          // Focus the previous toggle
+          accordionTogglesArr[prevToggle].focus();
+          break;
+
+        // Down arrow key
+        case keys.down:
+          // If the current active toggle is the last bail
+          if (accordionTogglesArr[nextToggle] === undefined) return;
+
+          // Focus the next toggle
+          accordionTogglesArr[nextToggle].focus();
+          break;
+      }
+    }
+  }
+
+  // Cleans up event listeners
   var destroy = function() {
     document.removeEventListener('click', _handleClick, false);
+    document.removeEventListener('keyup', _handleKeyup, false);
   }
 
   var init = function() {
@@ -116,8 +175,10 @@
 
     // Set up event delegation
     document.addEventListener('click', _handleClick, false);
+    document.addEventListener('keyup', _handleKeyup, false);
   }
 
+  // Return public APIs
   return {
     init: init,
     open: open,
