@@ -1,12 +1,10 @@
 # rivet-collapsible
 An accessible expand-and-collapse widget for Rivet
 
-[Download Rivet collapsible](https://github.iu.edu/UITS/rivet-collapsible/archive/master.zip) | [View the demo](https://github.iu.edu/pages/UITS/rivet-collapsible/)
+[Download Rivet collapsible](https://github.com/indiana-university/rivet-collapsible/archive/master.zip) | [View the demo](https://indiana-university.github.io/rivet-collapsible/)
 
 ## Getting started
 The Rivet collapsible add-on requires the use of the core Rivet CSS. You can find out more about how to get started in [the Rivet documentation](https://rivet.iu.edu/components/). Once you are using Rivet, you can download the Rivet collapsible source files and include them in your project.
-
-[Download](https://github.iu.edu/UITS/rivet-collapsible/archive/master.zip)
 
 ### 1. Include the CCS and JavaScript in your page
 ```html
