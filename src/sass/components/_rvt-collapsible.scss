@@ -38,12 +38,16 @@
   }
 
   &--panel {
-    border: 1px solid #ddd;
+    border: 1px solid $color-black--200;
+    border-radius: $xxs;
+  }
+
+  &--panel &__title {
+    background-color: $color-background-subtle;
     border-radius: $xxs;
   }
 
   &--panel &__title button {
-    background-color: $color-background-subtle;
     border-radius: $xxs;
     padding: $sm*.75;
 
@@ -60,5 +64,11 @@
   &--panel &__content {
     padding: $sm;
     border-top: 1px solid #ddd;
+  }
+}
+
+.rvt-collapsible-accordion {
+  .rvt-collapsible:not(:first-child) {
+    margin-top: $sm;
   }
 }
