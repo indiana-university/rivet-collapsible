@@ -1,7 +1,11 @@
 {
   "name": "rivet-collapsible",
-  "version": "0.1.0-alpha",
+  "version": "0.1.1-alpha",
   "description": "An accessible expand-and-collapse widget for Rivet",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/indiana-university/rivet-collapsible"
+  },
   "main": "dist/js/rivet-collapsible.js",
   "scripts": {
     "start": "gulp",
@@ -9,6 +13,8 @@
     "test": "cypress run --spec cypress/integration/collapsible_spec.js",
     "cypress:open": "cypress open"
   },
+  "author": "Indiana University",
+  "license": "Apache-2.0",
   "dependencies": {
     "rivet-uits": "^1.0.0"
   },
