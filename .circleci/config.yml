@@ -40,6 +40,7 @@ jobs:
 
     docker:
       - image: cypress/base:8
+
     environment:
       ## this enables colors in the output
       TERM: xterm
@@ -53,6 +54,15 @@ jobs:
           - v1-dependencies-{{ checksum "package.json" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
+
+      - run:
+          name: Install Dependencies
+          command: npm install
+
+      - save_cache:
+          paths:
+          - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
 
       - run:
           command: node_modules/gulp/bin/gulp.js
