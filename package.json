@@ -1,10 +1,13 @@
 {
   "name": "rivet-collapsible",
   "version": "0.2.0",
-  "description": "An accessible expand-and-collapse widget for Rivet",
+  "description": "An expand-and-collapse widget for Rivet",
   "repository": {
     "type": "git",
     "url": "https://github.com/indiana-university/rivet-collapsible"
+  },
+  "bugs": {
+    "url": "https://github.com/indiana-university/rivet-collapsible/issues",
   },
   "main": "dist/js/rivet-collapsible.js",
   "scripts": {
