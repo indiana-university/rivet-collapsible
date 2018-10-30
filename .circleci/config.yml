@@ -53,9 +53,6 @@ jobs:
           - v1-dependencies-{{ checksum "package.json" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
-      - run:
-          name: Install Dependencies
-          command: npm install
 
       - run:
           command: node_modules/gulp/bin/gulp.js
