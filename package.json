@@ -1,6 +1,6 @@
 {
   "name": "rivet-collapsible",
-  "version": "0.1.1-alpha",
+  "version": "0.2.0",
   "description": "An accessible expand-and-collapse widget for Rivet",
   "repository": {
     "type": "git",
@@ -14,13 +14,11 @@
     "cypress:open": "cypress open"
   },
   "author": "Indiana University",
-  "license": "Apache-2.0",
-  "dependencies": {
-    "rivet-uits": "^1.0.0"
-  },
+  "license": "BSD-3-Clause",
+  "dependencies": {},
   "devDependencies": {
     "autoprefixer": "^8.5.0",
-    "browser-sync": "^2.24.4",
+    "browser-sync": "^2.26.3",
     "cypress": "^2.1.0",
     "del": "^3.0.0",
     "gulp": "^3.9.1",
@@ -31,6 +29,7 @@
     "gulp-sass": "^4.0.1",
     "gulp-uglify": "^3.0.0",
     "pump": "^3.0.0",
+    "rivet-uits": "^1.1.0",
     "run-sequence": "^2.2.1"
   }
 }
