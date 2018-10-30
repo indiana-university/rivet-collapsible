@@ -36,31 +36,35 @@ jobs:
     - run: npm run build
 
   test:
-    <<: *defaults
+    working_directory: ~/rivet-collapsible
+
+    docker:
+      - image: cypress/base:8
+    environment:
+      ## this enables colors in the output
+      TERM: xterm
 
     steps:
-    - checkout
+      - checkout
 
-    # Download and cache dependencies
-    - restore_cache:
-        keys:
-        - v1-dependencies-{{ checksum "package.json" }}
-        # fallback to using the latest cache if no exact match is found
-        - v1-dependencies-
-    - run:
-        name: Install Dependencies
-        command: npm install
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+      - run:
+          name: Install Dependencies
+          command: npm install
 
-    - run: npm run build
+      - run:
+          command: node_modules/gulp/bin/gulp.js
+          background: true
 
-    - run:
-        command: node_modules/gulp/bin/gulp.js
-        background: true
-
-    # Run tests
-    - run:
-        name: Run tests
-        command: $(npm bin)/cypress run
+      # Run tests
+      - run:
+          name: Run tests
+          command: $(npm bin)/cypress run
 
   npm:
     <<: *defaults
