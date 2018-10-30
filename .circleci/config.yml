@@ -64,7 +64,7 @@ jobs:
       # Run tests
       - run:
           name: Run tests
-          command: $(npm bin)/cypress run
+          command: npm test
 
   npm:
     <<: *defaults
