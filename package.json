@@ -18,7 +18,7 @@
   "dependencies": {},
   "devDependencies": {
     "autoprefixer": "^8.5.0",
-    "browser-sync": "^2.24.4",
+    "browser-sync": "^2.26.3",
     "cypress": "^2.1.0",
     "del": "^3.0.0",
     "gulp": "^3.9.1",
