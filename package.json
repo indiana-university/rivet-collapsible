@@ -7,7 +7,7 @@
     "url": "https://github.com/indiana-university/rivet-collapsible"
   },
   "bugs": {
-    "url": "https://github.com/indiana-university/rivet-collapsible/issues",
+    "url": "https://github.com/indiana-university/rivet-collapsible/issues"
   },
   "main": "dist/js/rivet-collapsible.js",
   "scripts": {
