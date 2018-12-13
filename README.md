@@ -3,6 +3,10 @@ An accessible expand-and-collapse widget for Rivet
 
 [Download Rivet collapsible](https://github.com/indiana-university/rivet-collapsible/archive/master.zip) | [View the demo](https://indiana-university.github.io/rivet-collapsible/)
 
+## Build status
+
+[![CircleCI](https://circleci.com/gh/indiana-university/rivet-collapsible.svg?style=svg)](https://circleci.com/gh/indiana-university/rivet-collapsible)
+
 ## Getting started
 The Rivet collapsible add-on requires the use of the core Rivet CSS. You can find out more about how to get started in [the Rivet documentation](https://rivet.iu.edu/components/). Once you are using Rivet, you can download the Rivet collapsible source files and include them in your project.
 
