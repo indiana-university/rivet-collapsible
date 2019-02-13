@@ -84,7 +84,7 @@ jobs:
     steps:
     - run:
         name: Get version
-        command: VERSION=$(node -p "require('./package.json').version")
+        command: echo $npm_package_version
     - run:
         name: Authenticate with registry
         command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/rivet-collapsible/.npmrc
