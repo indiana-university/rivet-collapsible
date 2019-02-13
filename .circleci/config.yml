@@ -69,8 +69,8 @@ jobs:
           name: Install dependencies
           command: npm install
 
-    # Save cache settings
-    - save_cache: *save-node-modules
+      # Save cache settings
+      - save_cache: *save-node-modules
 
       - run:
           command: node_modules/gulp/bin/gulp.js
