@@ -44,6 +44,11 @@ jobs:
     # Save cache settings
     - save_cache: *save-node-modules
 
+    # Run tests
+    - run:
+        name: Run tests
+        command: npm test
+
     # Build!
     - run: 
         name: Build components
@@ -70,10 +75,7 @@ jobs:
       # Save cache settings
       - save_cache: *save-node-modules
 
-      # Run tests
-      - run:
-          name: Run tests
-          command: npm test
+      
 
   publish_package:
     <<: *defaults
@@ -93,10 +95,7 @@ workflows:
   build-test-npm:
     jobs:
     - build
-    - build_test:
-        requires:
-        - build
     - publish_package:
         requires:
-        - build_test
+        - build
         filters: *filter-only-master
