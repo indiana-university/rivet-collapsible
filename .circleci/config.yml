@@ -37,13 +37,17 @@ jobs:
     - restore_cache: *restore-node-modules
 
     # Install dependencies
-    - run: npm install
+    - run: 
+        name: Install dependencies
+        command: npm install
 
     # Save cache settings
     - save_cache: *save-node-modules
 
     # Build!
-    - run: npm run build
+    - run: 
+        name: Build components
+        command: npm run build
 
   build_test:
     working_directory: ~/rivet-collapsible
