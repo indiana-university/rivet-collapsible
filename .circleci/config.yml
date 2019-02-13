@@ -24,7 +24,7 @@ aliases:
 defaults: &defaults
   working_directory: ~/rivet-collapsible
   docker:
-  - image: circleci/node:10
+  - image: circleci/node:7.10
 
 jobs:
   build:
