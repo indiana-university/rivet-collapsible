@@ -44,11 +44,6 @@ jobs:
     # Save cache settings
     - save_cache: *save-node-modules
 
-    # Run tests
-    - run:
-        name: Run tests
-        command: npm test
-
     # Build!
     - run: 
         name: Build components
@@ -68,14 +63,14 @@ jobs:
       - checkout
       # Download and cache dependencies
       - restore_cache: *restore-node-modules
-      #Install dependencies
       - run:
-          name: Install dependencies
-          command: npm install
-      # Save cache settings
-      - save_cache: *save-node-modules
+          command: node_modules/gulp/bin/gulp.js
+          background: true
 
-      
+      # Run tests
+      - run:
+          name: Run tests
+          command: npm test
 
   publish_package:
     <<: *defaults
@@ -95,7 +90,10 @@ workflows:
   build-test-npm:
     jobs:
     - build
-    - publish_package:
+    - build_test:
         requires:
         - build
+    - publish_package:
+        requires:
+        - build_test
         filters: *filter-only-master
