@@ -4,38 +4,52 @@
 #
 version: 2
 
+# Aliases are shorthand references for common settings.
+aliases:
+  # Cache Management
+  - &restore-node-modules
+    keys:
+      - v1-node-modules-{{ checksum "package.json" }}
+  - &save-node-modules
+    paths:
+      - node_modules
+    key: v1-node-modules-{{ checksum "package.json" }}
+
+  # Branch Filtering
+  - &filter-only-master
+    branches:
+      only:
+        - master
+
 defaults: &defaults
   working_directory: ~/rivet-collapsible
   docker:
-  - image: circleci/node:7.10
-
-
+    - image: circleci/node:7.10
 
 jobs:
   build:
     <<: *defaults
 
     steps:
-    - checkout
+      - checkout
 
-    # Download and cache dependencies
-    - restore_cache:
-        keys:
-        - v1-dependencies-{{ checksum "package.json" }}
-        # fallback to using the latest cache if no exact match is found
-        - v1-dependencies-
+      # Download and cache dependencies
+      - restore_cache: *restore-node-modules
 
-    - run: npm install
+      # Install dependencies
+      - run:
+          name: Install dependencies
+          command: npm install
 
-    - save_cache:
-        paths:
-        - node_modules
-        key: v1-dependencies-{{ checksum "package.json" }}
+      # Save cache settings
+      - save_cache: *save-node-modules
 
-    # run tests!
-    - run: npm run build
+      # Build!
+      - run:
+          name: Build components
+          command: npm run build
 
-  test:
+  build_test:
     working_directory: ~/rivet-collapsible
 
     docker:
@@ -47,22 +61,16 @@ jobs:
 
     steps:
       - checkout
-
       # Download and cache dependencies
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+      - restore_cache: *restore-node-modules
 
+      # Install dependencies
       - run:
-          name: Install Dependencies
+          name: Install dependencies
           command: npm install
 
-      - save_cache:
-          paths:
-          - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+      # Save cache settings
+      - save_cache: *save-node-modules
 
       - run:
           command: node_modules/gulp/bin/gulp.js
@@ -73,30 +81,29 @@ jobs:
           name: Run tests
           command: npm test
 
-  npm:
+  publish_package:
     <<: *defaults
     steps:
-    - run:
-        name: Get version
-        command: VERSION=$(node -pe "require('./package.json').version")
-    - run:
-        name: Authenticate with registry
-        command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/rivet-collapsible/.npmrc
-    - run:
-        name: Publish package
-        command: cd ~/rivet-collapsible/ && npm publish
+      - run:
+          name: Get version
+          command: echo $npm_package_version
+      - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/rivet-collapsible/.npmrc
+      - run:
+          name: Publish package
+          command: cd ~/rivet-collapsible/ && npm publish
 
 workflows:
   version: 2
   build-test-npm:
     jobs:
-    - build
-    - test:
-        requires:
-        - build
-    - npm:
-        requires:
-        - test
-        filters:
-          branches:
-            only: master
+      - build
+      - build_test:
+          requires:
+            - build
+      - publish_package:
+          requires:
+            - build_test
+          context: iubot
+          filters: *filter-only-master
