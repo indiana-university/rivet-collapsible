@@ -115,10 +115,10 @@ jobs:
     docker: *use-github
 
     steps:
-      -attach_workspace:
+      - attach_workspace:
         at: ./fake-folder
 
-      -run:
+      - run:
         name: "Publish Release on Github"
         command: |
           VERSION=$(rivet-collapsible --version)
