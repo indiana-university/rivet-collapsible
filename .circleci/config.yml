@@ -154,20 +154,14 @@ workflows:
       - test:
           requires:
             - build
-          filters:
-            <<: [*filter-only-develop, *filter-only-prereleases]
-      - publish_package:
+      - publish_github:
           requires:
             - test
           context: iubot
-          filters:
-            <<: [*filter-only-develop, *filter-only-prereleases]
-      - publish_github:
+      - publish_package:
           requires:
-            - publish_package
+            - publish_github
           context: iubot
-          filters:
-            <<: [*filter-only-develop, *filter-only-prereleases]
   release:
     jobs:
       - build:
@@ -176,17 +170,11 @@ workflows:
       - test:
           requires:
             - build
-          filters:
-            <<: [*filter-only-master, *filter-only-releases]
       - publish_github:
-          requires:
-            - publish_package
-          context: iubot
-          filters:
-            <<: [*filter-only-master, *filter-only-releases]
-      - publish_package:
           requires:
             - test
           context: iubot
-          filters:
-            <<: [*filter-only-master, *filter-only-releases]
+      - publish_package:
+          requires:
+            - publish_github
+          context: iubot
