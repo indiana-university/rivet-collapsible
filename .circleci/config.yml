@@ -115,14 +115,11 @@ jobs:
     docker: *use-github
 
     steps:
-      - attach_workspace:
-        at: ./fake-folder
-
       - run:
         name: "Publish Release on Github"
         command: |
           VERSION=$(rivet-collapsible --version)
-          ghr -t ${GH_TOKEN} -u ${GIT_AUTHOR_EMAIL} -r rivet-collapsible -c ${CIRCLE_SHA1} -delete ${VERSION} ./fake-folder/
+          ghr -t ${GH_TOKEN} -u ${GIT_AUTHOR_EMAIL} -r rivet-collapsible -c ${CIRCLE_SHA1} -delete ${VERSION}
 
   publish_package:
     <<: *defaults
@@ -154,13 +151,19 @@ workflows:
       - test:
           requires:
             - build
+          filters:
+            <<: [*filter-only-develop, *filter-only-prereleases]
       - publish_github:
           requires:
             - test
+          filters:
+            <<: [*filter-only-develop, *filter-only-prereleases]
           context: iubot
       - publish_package:
           requires:
             - publish_github
+          filters:
+            <<: [*filter-only-develop, *filter-only-prereleases]
           context: iubot
   release:
     jobs:
@@ -170,11 +173,17 @@ workflows:
       - test:
           requires:
             - build
+          filters:
+            <<: [*filter-only-master, *filter-only-releases]
       - publish_github:
           requires:
             - test
+          filters:
+            <<: [*filter-only-master, *filter-only-releases]
           context: iubot
       - publish_package:
           requires:
             - publish_github
+          filters:
+            <<: [*filter-only-master, *filter-only-releases]
           context: iubot
