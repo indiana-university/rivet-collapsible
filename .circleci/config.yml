@@ -115,7 +115,7 @@ jobs:
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/rivet-collapsible/.npmrc
       - run:
           name: Publish package
-          command: ~/rivet-collapsible/.circleci/npm_publish.sh
+          command: sh .circleci/npm_publish.sh
 
 workflows:
   version: 2
