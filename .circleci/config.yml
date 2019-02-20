@@ -115,23 +115,23 @@ jobs:
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/rivet-collapsible/.npmrc
       - run:
           name: Publish package
-          command: .circleci/npm_publish.sh
+          command: ~/rivet-collapsible/.circleci/npm_publish.sh
 
 workflows:
   version: 2
   build-test:
     jobs:
       - build
-      - test:
-          requires:
-            - build
+      # - test:
+          # requires:
+            # - build
       - publish_package:
           requires:
-            - test
+            - build
           # filters: *filter-ignore-feature
           context: iubot
       - publish_github:
           requires:
-            - test
+            - build
           filters: *filter-only-master
           context: iubot
