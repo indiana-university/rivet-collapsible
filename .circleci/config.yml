@@ -114,6 +114,8 @@ jobs:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/rivet-collapsible/.npmrc
       - run:
+          command: ls -la ~/rivet-collapsible/.circleci/
+      - run:
           name: Publish package
           shell: /bin/sh
           command: ~/rivet-collapsible/.circleci/npm_publish.sh
@@ -124,8 +126,8 @@ workflows:
     jobs:
       - build
       # - test:
-          # requires:
-            # - build
+      # requires:
+      # - build
       - publish_package:
           requires:
             - build
