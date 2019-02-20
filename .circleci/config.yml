@@ -6,6 +6,15 @@ version: 2
 
 # Aliases are shorthand references for common settings.
 aliases:
+  # Docker Images
+  - &use-github
+    - image: cibuilds/github:0.10
+      environment:
+        GIT_AUTHOR_NAME: iubot
+        GIT_AUTHOR_EMAIL: iubot@iu.edu
+        GIT_COMMITTER_NAME: iubot
+        GIT_COMMITTER_EMAIL: iubot@iu.edu
+
   # Cache Management
   - &restore-node-modules
     keys:
@@ -20,6 +29,25 @@ aliases:
     branches:
       only:
         - master
+
+  - &filter-ignore-master
+    branches:
+      ignore:
+        - master
+
+  - &filter-only-develop
+    branches:
+      only:
+        - develop
+
+  # Tag Filtering
+  - &filter-only-prereleases
+    tags:
+      only: /^v\d+\.\d+\.d+-(alpha|beta)$/
+
+  - &filter-only-releases
+    tags:
+      only: /^v\d+\.\d+\.d+$/
 
 defaults: &defaults
   working_directory: ~/rivet-collapsible
@@ -49,7 +77,7 @@ jobs:
           name: Build components
           command: npm run build
 
-  build_test:
+  test:
     working_directory: ~/rivet-collapsible
 
     docker:
@@ -73,13 +101,28 @@ jobs:
       - save_cache: *save-node-modules
 
       - run:
-          command: node_modules/gulp/bin/gulp.js
+          command: npm run headless
           background: true
 
       # Run tests
       - run:
           name: Run tests
           command: npm test
+
+  publish_github:
+    working_directory: ~/rivet-collapsible
+
+    docker: *use-github
+
+    steps:
+      - attach_workspace:
+        at: ./fake-folder
+
+      - run:
+        name: "Publish Release on Github"
+        command: |
+          VERSION=$(rivet-collapsible --version)
+          ghr -t ${GH_TOKEN} -u ${GIT_AUTHOR_EMAIL} -r rivet-collapsible -c ${CIRCLE_SHA1} -delete ${VERSION} ./fake-folder/
 
   publish_package:
     <<: *defaults
@@ -96,14 +139,42 @@ jobs:
 
 workflows:
   version: 2
-  build-test-npm:
+  build-test:
     jobs:
-      - build
-      - build_test:
+      - build:
+          filters: *filter-ignore-master
+      - test:
           requires:
             - build
+  prerelease:
+    jobs:
+      - build:
+          filters:
+            <<: [*filter-only-develop, *filter-only-prereleases]
+      - test:
+          requires:
+            - build
+      - publish_github:
+          requires:
+            - test
+          context: iubot
       - publish_package:
           requires:
-            - build_test
+            - publish_github
           context: iubot
-          filters: *filter-only-master
+  release:
+    jobs:
+      - build:
+          filters:
+            <<: [*filter-only-master, *filter-only-releases]
+      - test:
+          requires:
+            - build
+      - publish_github:
+          requires:
+            - test
+          context: iubot
+      - publish_package:
+          requires:
+            - publish_github
+          context: iubot
