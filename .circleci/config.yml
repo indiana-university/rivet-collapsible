@@ -146,44 +146,36 @@ workflows:
   prerelease:
     jobs:
       - build:
-          filters:
-            <<: [*filter-only-develop, *filter-only-prereleases]
+          filters: *filter-only-prereleases
       - test:
           requires:
             - build
-          filters:
-            <<: [*filter-only-develop, *filter-only-prereleases]
+          filters: *filter-only-prereleases
       - publish_github:
           requires:
             - test
-          filters:
-            <<: [*filter-only-develop, *filter-only-prereleases]
+          filters: *filter-only-prereleases
           context: iubot
       - publish_package:
           requires:
             - publish_github
-          filters:
-            <<: [*filter-only-develop, *filter-only-prereleases]
+          filters: *filter-only-prereleases
           context: iubot
   release:
     jobs:
       - build:
-          filters:
-            <<: [*filter-only-master, *filter-only-releases]
+          filters: *filter-only-releases
       - test:
           requires:
             - build
-          filters:
-            <<: [*filter-only-master, *filter-only-releases]
+          filters: *filter-only-releases
       - publish_github:
           requires:
             - test
-          filters:
-            <<: [*filter-only-master, *filter-only-releases]
+          filters: *filter-only-releases
           context: iubot
       - publish_package:
           requires:
             - publish_github
-          filters:
-            <<: [*filter-only-master, *filter-only-releases]
+          filters: *filter-only-releases
           context: iubot
