@@ -118,8 +118,7 @@ jobs:
           command: ls -la && pwd 
       - run:
           name: Publish package
-          shell: /bin/sh
-          command: npm_publish.sh
+          command: sh npm_publish.sh
 
 workflows:
   version: 2
