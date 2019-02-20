@@ -114,7 +114,7 @@ jobs:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/rivet-collapsible/.npmrc
       - run:
-          command: ls -la
+          command: ls -la && pwd 
       - run:
           name: Publish package
           shell: /bin/sh
