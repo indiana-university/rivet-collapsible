@@ -101,7 +101,7 @@ jobs:
       - save_cache: *save-node-modules
 
       - run:
-          command: node_modules/gulp/bin/gulp.js
+          command: npm headless
           background: true
 
       # Run tests

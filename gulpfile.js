@@ -36,6 +36,23 @@ gulp.task('browser-sync', function (callback) {
   callback();
 });
 
+// Development Server -- No Browser
+
+gulp.task('browser-sync-headless', function (callback) {
+  browserSync.init({
+    server: {
+      baseDir: "./docs"
+    },
+    open: false
+  });
+
+  gulp.watch('src/sass/**/*.scss', gulp.series('sass'));
+  gulp.watch('src/js/**/*.js', gulp.series('js'));
+  gulp.watch('src/index.html', gulp.series('html'));
+
+  callback();
+});
+
 gulp.task('html', function() {
   return gulp.src('src/index.html')
     .pipe(gulp.dest('docs/'))
@@ -133,6 +150,9 @@ gulp.task('clean', gulp.series('css:clean', 'js:clean'));
 
 // Run release tasks
 gulp.task('release', gulp.series('css:release', 'js:release'));
+
+// Headless dev server
+gulp.task('headless', gulp.series('browser-sync-headless'));
 
 // Default dev server
 gulp.task('default', gulp.series('browser-sync'));

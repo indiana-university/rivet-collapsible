@@ -12,6 +12,7 @@
   "main": "dist/js/rivet-collapsible.js",
   "scripts": {
     "start": "gulp",
+    "headless": "gulp browser-sync-headless",
     "build": "gulp release",
     "test": "cypress run --spec cypress/integration/collapsible_spec.js",
     "cypress:open": "cypress open"
