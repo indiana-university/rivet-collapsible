@@ -110,6 +110,7 @@ jobs:
   publish_package:
     <<: *defaults
     steps:
+      - checkout
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/rivet-collapsible/.npmrc
