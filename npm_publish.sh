@@ -21,7 +21,7 @@ elif [[ $CIRCLE_BRANCH = bugfix* ]]
 then
     TAG="bug.$HASH"
     echo "Bugfix. Npm publish ($TAG)"
-    # npm publish --tag "$TAG"
+    npm publish --tag "$TAG"
 else
     [[ $CIRCLE_BRANCH =~ [0-9]+\.[0-9]+\.[0-9]+ ]]
     VERSION=$BASH_REMATCH

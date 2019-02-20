@@ -115,8 +115,6 @@ jobs:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/rivet-collapsible/.npmrc
       - run:
-          command: ls -la && pwd 
-      - run:
           name: Publish package
           command: bash npm_publish.sh
 
@@ -125,16 +123,16 @@ workflows:
   build-test:
     jobs:
       - build
-      # - test:
-      # requires:
-      # - build
-      - publish_package:
+      - test:
           requires:
             - build
-          # filters: *filter-ignore-feature
+      - publish_package:
+          requires:
+            - test
+          filters: *filter-ignore-feature
           context: iubot
       - publish_github:
           requires:
-            - build
+            - test
           filters: *filter-only-master
           context: iubot
