@@ -30,10 +30,11 @@ aliases:
       only:
         - master
 
-  - &filter-ignore-feature
+  - &filter-only-release-hotfix
     branches:
-      ignore:
-        - /^feature*/
+      only:
+        - /^release*/
+        - /^hotfix*/
 
 defaults: &defaults
   working_directory: ~/rivet-collapsible
@@ -95,19 +96,7 @@ jobs:
           name: Run tests
           command: npm test
 
-  publish_github:
-    working_directory: ~/rivet-collapsible
-
-    docker: *use-github
-
-    steps:
-      - run:
-        name: "Publish Release on Github"
-        command: |
-          VERSION=${CIRCLE_TAG}
-          ghr -t ${GH_TOKEN} -u ${GIT_AUTHOR_EMAIL} -r rivet-collapsible -c ${CIRCLE_SHA1} -delete ${VERSION}
-
-  publish_package:
+  publish_rc_package:
     <<: *defaults
     steps:
       - checkout
@@ -115,8 +104,19 @@ jobs:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/rivet-collapsible/.npmrc
       - run:
-          name: Publish package
-          command: bash npm_publish.sh
+          name: Publish RC package
+          command: bash publish_rc.sh
+
+  publish_production_package:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/rivet-collapsible/.npmrc
+      - run:
+          name: Publish production package
+          command: npm publish
 
 workflows:
   version: 2
@@ -126,12 +126,12 @@ workflows:
       - test:
           requires:
             - build
-      - publish_package:
+      - publish_rc_package:
           requires:
             - test
-          filters: *filter-ignore-feature
+          filters: *filter-only-release-hotfix
           context: iubot
-      - publish_github:
+      - publish_production_package:
           requires:
             - test
           filters: *filter-only-master
