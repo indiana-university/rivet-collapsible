@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# Guard against unintended execution.
+if [[ $CIRCLE_BRANCH == "" ]] ; then
+    echo "This script is intended to be run from Circle CI. Buh-bye now!"
+    exit 0
+fi 
+
+if [[ $CIRCLE_BRANCH != "release"* ]] && [[ $CIRCLE_BRANCH != "hotfix"* ]] ; then
+    echo "This script is intended to be run only on release/hotfix branches. Buh-bye now!"
+    exit 0
+fi
+
+# And away we go!
+echo "Publishing from $CIRCLE_BRANCH" 
+
+# Get the version number from the branch name.
+# Ex: release/v1.2.3 => 1.2.3
+[[ $CIRCLE_BRANCH =~ [0-9]+\.[0-9]+\.[0-9]+ ]]
+VERSION=$BASH_REMATCH
+
+# Get count of commits to the release/hotfix branch.
+# This will be the "RC" number, e.g. RC.1
+echo "Counting number of commits on branch: $COMMITS..."
+COMMITS=$(git rev-list --count $CIRCLE_BRANCH 2>&1)
+if [ $? -eq 0 ]; then
+    echo "Counted $COMMITS commits."
+else
+    echo "Unable to count commits to branch. Using 0."
+    COMMITS=0
+fi
+
+# Set the RC version as a combo of the branch version and number of commits.
+RC_VERSION="$VERSION-rc.$COMMITS"
+
+# Update package.json with the latest version number
+echo "Updating package.json version to $RC_VERSION..."
+npm version $RC_VERSION —no-git-tag-version —no-commit-hooks
+if [ $? -eq 0 ]; then
+    echo "Package.json updated to version $RC_VERSION. Commiting updated package.json..."
+    git config credential.helper 'cache --timeout=120'
+    git config user.email "iubot@iu.edu"
+    git config user.name "iubot"
+    git commit -m "Circle CI: update package.json version. [skip ci]"
+    echo "Pushing updated package.json to origin..."
+    # Push quietly to prevent showing the token in log
+    git push -q https://${GH_TOKEN}@github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git $CIRCLE_BRANCH
+else
+    echo "Package.json was already at version $RC_VERSION."
+fi
+
+# Form the tag with the number of commits to this branch and publish the package.
+echo "Publishing package to NPM tag 'rc' with version '$RC_VERSION' ..."
+npm publish --tag rc
