@@ -37,7 +37,7 @@ aliases:
         - /^hotfix.*/
 
 defaults: &defaults
-  working_directory: ~/rivet-collapsible
+  working_directory: ~/$CIRCLE_PROJECT_REPONAME
   docker:
     - image: circleci/node:7.10
 
@@ -65,7 +65,7 @@ jobs:
           command: npm run build
 
   test:
-    working_directory: ~/rivet-collapsible
+    working_directory: ~/$CIRCLE_PROJECT_REPONAME
 
     docker:
       - image: cypress/base:8
@@ -102,7 +102,7 @@ jobs:
       - checkout
       - run:
           name: Authenticate with registry
-          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/rivet-collapsible/.npmrc
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/$CIRCLE_PROJECT_REPONAME/.npmrc
       - run:
           name: Publish RC package
           command: bash publish_rc.sh
@@ -113,7 +113,7 @@ jobs:
       - checkout
       - run:
           name: Authenticate with registry
-          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/rivet-collapsible/.npmrc
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/$CIRCLE_PROJECT_REPONAME/.npmrc
       - run:
           name: Publish production package
           command: npm publish
