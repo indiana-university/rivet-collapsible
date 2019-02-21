@@ -1,5 +1,17 @@
 #!/bin/bash
 
+# Guard against unintended execution.
+if [[ $CIRCLE_BRANCH == "" ]] ; then
+    echo "This script is intended to be run from Circle CI. Buh-bye now!"
+    exit 0
+fi 
+
+if [[ $CIRCLE_BRANCH != "release"* ]] && [[ $CIRCLE_BRANCH != "hotfix"* ]] ; then
+    echo "This script is intended to be run only on release/hotfix branches. Buh-bye now!"
+    exit 0
+fi
+
+# And away we go!
 echo "Publishing from $CIRCLE_BRANCH" 
 
 # Get the version number from the branch name.
