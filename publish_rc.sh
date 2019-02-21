@@ -35,7 +35,7 @@ RC_VERSION="$VERSION-rc.$COMMITS"
 
 # Update package.json with the latest version number
 echo "Updating package.json version to $RC_VERSION..."
-npm version $RC_VERSION —no-git-tag-version —no-commit-hooks
+npm version $RC_VERSION --no-git-tag-version --no-commit-hooks
 if [ $? -eq 0 ]; then
     echo "Package.json updated to version $RC_VERSION. Commiting updated package.json..."
     git config credential.helper 'cache --timeout=120'
