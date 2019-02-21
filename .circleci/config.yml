@@ -33,8 +33,8 @@ aliases:
   - &filter-only-release-hotfix
     branches:
       only:
-        - /^release*/
-        - /^hotfix*/
+        - /release*/
+        - /hotfix*/
 
 defaults: &defaults
   working_directory: ~/rivet-collapsible
