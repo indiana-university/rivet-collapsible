@@ -41,7 +41,6 @@ fi
 # Set the RC version as a combo of the branch version and number of commits.
 RC_VERSION="$VERSION-rc.$COMMITS"
 
-
 # Update package.json with the latest version number
 echo "Updating package.json version to $RC_VERSION..."
 npm version $RC_VERSION --no-git-tag-version --no-commit-hooks
