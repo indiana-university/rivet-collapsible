@@ -8,7 +8,6 @@ const pump = require('pump');
 const autoprefixer = require('autoprefixer');
 const postcss = require('gulp-postcss');
 const cssnano = require('gulp-cssnano');
-const runSequence = require('run-sequence');
 const del = require('del');
 const package = require('./package.json');
 
@@ -23,16 +22,35 @@ const banner = `/*!
 `;
 
 // Development server
-gulp.task('browser-sync', function () {
+gulp.task('browser-sync', function (callback) {
   browserSync.init({
     server: {
       baseDir: "./docs"
     }
   });
 
-  gulp.watch('src/sass/**/*.scss', ['sass']);
-  gulp.watch('src/js/**/*.js', ['js']);
-  gulp.watch('src/index.html', ['html']);
+  gulp.watch('src/sass/**/*.scss', gulp.series('sass'));
+  gulp.watch('src/js/**/*.js', gulp.series('js'));
+  gulp.watch('src/index.html', gulp.series('html'));
+
+  callback();
+});
+
+// Development Server -- No Browser
+
+gulp.task('browser-sync-headless', function (callback) {
+  browserSync.init({
+    server: {
+      baseDir: "./docs"
+    },
+    open: false
+  });
+
+  gulp.watch('src/sass/**/*.scss', gulp.series('sass'));
+  gulp.watch('src/js/**/*.js', gulp.series('js'));
+  gulp.watch('src/index.html', gulp.series('html'));
+
+  callback();
 });
 
 gulp.task('html', function() {
@@ -73,7 +91,7 @@ gulp.task('css:prefix', function () {
     .pipe(gulp.dest('dist/css/'));
 });
 
-gulp.task('css:header', function () {
+gulp.task('css:header', function (callback) {
   gulp.src('dist/css/' + package.name + '.css')
     .pipe(header(banner, { package: package }))
     .pipe(gulp.dest('dist/css/'));
@@ -81,11 +99,11 @@ gulp.task('css:header', function () {
   gulp.src('dist/css/' + package.name + '.min.css')
     .pipe(header(banner, { package: package }))
     .pipe(gulp.dest('dist/css/'));
+  
+  callback();
 });
 
-gulp.task('css:release', function(done) {
-  runSequence('css:clean', 'sass:release', 'css:prefix', 'css:minify', 'css:header')
-});
+gulp.task('css:release', gulp.series('css:clean', 'sass:release', 'css:prefix', 'css:minify', 'css:header'));
 
 // This task is used to watch durring development only.
 gulp.task('js', function() {
@@ -114,7 +132,7 @@ gulp.task('js:minify', function (done) {
   );
 });
 
-gulp.task('js:header', function () {
+gulp.task('js:header', function (callback) {
   gulp.src('dist/js/' + package.name + '.js')
     .pipe(header(banner, { package: package }))
     .pipe(gulp.dest('dist/js/'));
@@ -122,17 +140,19 @@ gulp.task('js:header', function () {
   gulp.src('dist/js/' + package.name + '.min.js')
     .pipe(header(banner, { package: package }))
     .pipe(gulp.dest('dist/js/'));
+    callback();
 });
 
-gulp.task('js:release', function(done) {
-  runSequence('js:clean', 'js:copy', 'js:minify', 'js:header', done);
-});
+gulp.task('js:release', gulp.series('js:clean', 'js:copy', 'js:minify', 'js:header'));
 
 // Deletes everything in the dist/js and dist/css folders
-gulp.task('clean', ['css:clean', 'js:clean']);
+gulp.task('clean', gulp.series('css:clean', 'js:clean'));
 
 // Run release tasks
-gulp.task('release', ['css:release', 'js:release']);
+gulp.task('release', gulp.series('css:release', 'js:release'));
+
+// Headless dev server
+gulp.task('headless', gulp.series('browser-sync-headless'));
 
 // Default dev server
-gulp.task('default', ['browser-sync']);
+gulp.task('default', gulp.series('browser-sync'));
