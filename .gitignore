@@ -3,3 +3,4 @@ node_modules/
 _demo/
 .idea
 cypress/videos/
+.npmrc
