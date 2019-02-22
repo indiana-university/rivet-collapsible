@@ -1,6 +1,6 @@
 {
   "name": "rivet-collapsible",
-  "version": "0.2.2-rc.0",
+  "version": "0.2.2-rc.8",
   "description": "An expand-and-collapse widget for Rivet",
   "repository": {
     "type": "git",
