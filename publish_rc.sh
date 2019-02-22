@@ -19,27 +19,8 @@ echo "Publishing from $CIRCLE_BRANCH"
 [[ $CIRCLE_BRANCH =~ [0-9]+\.[0-9]+\.[0-9]+ ]]
 VERSION=$BASH_REMATCH
 
-# Get count of commits to the release/hotfix branch.
-# This will be the "RC" number, e.g. RC.1
-echo "Counting number of commits on branch: "
-if [[ $CIRCLE_BRANCH = "release"* ]]
-then
-    COMMITS=$(($(git rev-list --count $CIRCLE_BRANCH 2>&1)-$(git rev-list --count develop 2>&1)))
-    echo "Counted $COMMITS commits."
-else
-    COMMITS=$(($(git rev-list --count $CIRCLE_BRANCH 2>&1)-$(git rev-list --count head 2>&1)))
-    echo "Counted $COMMITS commits."
-fi
-
-if [ $? -eq 0 ]; then
-    echo "Able to count commits. Using $COMMITS"
-else
-    COMMITS=0
-    echo "Unable to count commits to branch. Using 0."
-fi
-
-# Set the RC version as a combo of the branch version and number of commits.
-RC_VERSION="$VERSION-rc.$COMMITS"
+# Set the RC version as a combo of the branch version and the circle build number.
+RC_VERSION="$VERSION-rc.$CIRCLE_BUILD_NUM"
 
 # Update package.json with the latest version number
 echo "Updating package.json version to $RC_VERSION..."
