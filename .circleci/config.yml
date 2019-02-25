@@ -19,7 +19,7 @@ aliases:
   - &restore-node-modules
     keys:
       - v1-node-modules-{{ checksum "package.json" }}
-      
+
   - &save-node-modules
     paths:
       - node_modules
@@ -101,23 +101,39 @@ jobs:
     <<: *defaults
     steps:
       - checkout
+      # Download and cache dependencies
+      - restore_cache: *restore-node-modules
+      # Install dependencies
+      - run:
+          name: Install dependencies
+          command: npm install
+      # Save cache settings
+      - save_cache: *save-node-modules
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/$CIRCLE_PROJECT_REPONAME/.npmrc
       - run:
           name: Publish RC package
-          command: bash publish_rc.sh
+          command: bash scripts/publish_rc.sh
 
   publish_production_package:
     <<: *defaults
     steps:
       - checkout
+      # Download and cache dependencies
+      - restore_cache: *restore-node-modules
+      # Install dependencies
+      - run:
+          name: Install dependencies
+          command: npm install
+      # Save cache settings
+      - save_cache: *save-node-modules
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/$CIRCLE_PROJECT_REPONAME/.npmrc
       - run:
           name: Publish production package
-          command: npm publish
+          command: bash scripts/publish_prod.sh
 
 workflows:
   version: 2
