@@ -15,7 +15,8 @@
     "headless": "gulp browser-sync-headless",
     "build": "gulp release",
     "test": "cypress run --spec cypress/integration/collapsible_spec.js",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "prepublishOnly": "npm run build"
   },
   "author": "Indiana University",
   "license": "BSD-3-Clause",
