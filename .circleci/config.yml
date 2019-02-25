@@ -114,7 +114,7 @@ jobs:
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/$CIRCLE_PROJECT_REPONAME/.npmrc
       - run:
           name: Publish RC package
-          command: bash publish_rc.sh
+          command: bash scripts/publish_rc.sh
 
   publish_production_package:
     <<: *defaults
@@ -133,7 +133,7 @@ jobs:
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/$CIRCLE_PROJECT_REPONAME/.npmrc
       - run:
           name: Publish production package
-          command: npm publish
+          command: bash scripts/publish_prod.sh
 
 workflows:
   version: 2
