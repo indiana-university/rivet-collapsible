@@ -3,7 +3,7 @@
  * Copyright (C) 2018 The Trustees of Indiana University
  * SPDX-License-Identifier: BSD-3-Clause
 
- * rivet-collapsible - @version 0.2.4
+ * rivet-collapsible - @version 0.2.5
  */
 
 /**
