@@ -116,6 +116,9 @@ jobs:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/$CIRCLE_PROJECT_REPONAME/.npmrc
       - run:
+          name: Build files for distribution
+          command: npm run build
+      - run:
           name: Publish production package
           command: npm publish
 
