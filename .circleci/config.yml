@@ -144,7 +144,7 @@ workflows:
   build-test:
     jobs:
       - build:
-        filters: *filter-ignore-gh-pages
+          filters: *filter-ignore-gh-pages
       - test:
           requires:
             - build
