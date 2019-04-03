@@ -168,5 +168,7 @@ exports.release = series(
 // Headless dev server
 exports.headless = headless;
 
+exports.buildDocs = series(compileHTML, compileSass, compileJS);
+
 // Default dev server
 exports.default = watchFiles;
