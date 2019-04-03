@@ -28,6 +28,8 @@ if [ $? -eq 0 ]; then
     # Push quietly to prevent showing the token in log
     echo "Pushing updated package.json to origin..."
     git push -q https://${GH_TOKEN}@github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git $CIRCLE_BRANCH
+    # Update gh-pages
+    npm run deploy
 else
     echo "Could not publish to npm. Not adding package.json to github commit or pushing changes."
 fi
