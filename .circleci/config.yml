@@ -93,7 +93,7 @@ jobs:
       - save_cache: *save-node-modules
 
       - run:
-          command: npm run headless
+          command: npm start
           background: true
 
       # Run tests
