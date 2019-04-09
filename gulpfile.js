@@ -43,9 +43,9 @@ function headless(callback) {
     },
     open: false
   });
-  watch("src/sass/**/*.scss", compileSass);
-  watch("src/js/**/*.js", compileJS);
-  watch("src/index.html", compileHTML);
+  watch("src/sass/**/*.scss",{ ignoreInitial: false }, compileSass);
+  watch("src/js/**/*.js", { ignoreInitial: false }, compileJS);
+  watch("src/index.html", { ignoreInitial: false }, compileHTML);
 
   callback();
 }

@@ -1,6 +1,6 @@
 const COLLAPSIBLE_BUTTON = '[data-collapsible="default-collapsible"]';
 const COLLAPSIBLE_CONTENT = '#default-collapsible';
-const DEV_SERVER = 'http://localhost:3000';
+const DEV_SERVER = "http://localhost:3000";
 
 describe('Rivet collapsible interactions', function() {
   it('Click the default Rivet collapsible toggle button', function() {
