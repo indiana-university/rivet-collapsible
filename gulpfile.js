@@ -171,4 +171,4 @@ exports.headless = headless;
 exports.buildDocs = series(compileHTML, compileSass, compileJS);
 
 // Default dev server
-exports.default = watchFiles;
+exports.default = series(compileHTML, compileSass, compileJS, watchFiles);
