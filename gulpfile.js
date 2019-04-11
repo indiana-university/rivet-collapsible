@@ -43,9 +43,9 @@ function headless(callback) {
     },
     open: false
   });
-  watch("src/sass/**/*.scss", compileSass);
-  watch("src/js/**/*.js", compileJS);
-  watch("src/index.html", compileHTML);
+  watch("src/sass/**/*.scss",{ ignoreInitial: false }, compileSass);
+  watch("src/js/**/*.js", { ignoreInitial: false }, compileJS);
+  watch("src/index.html", { ignoreInitial: false }, compileHTML);
 
   callback();
 }
@@ -168,5 +168,7 @@ exports.release = series(
 // Headless dev server
 exports.headless = headless;
 
+exports.buildDocs = series(compileHTML, compileSass, compileJS);
+
 // Default dev server
-exports.default = watchFiles;
+exports.default = series(compileHTML, compileSass, compileJS, watchFiles);
