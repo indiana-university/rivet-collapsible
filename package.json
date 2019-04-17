@@ -1,6 +1,6 @@
 {
   "name": "rivet-collapsible",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "An expand-and-collapse widget for Rivet",
   "repository": {
     "type": "git",
@@ -12,28 +12,30 @@
   "main": "dist/js/rivet-collapsible.js",
   "scripts": {
     "start": "gulp",
-    "headless": "gulp browser-sync-headless",
+    "headless": "gulp headless",
     "build": "gulp release",
     "test": "cypress run --spec cypress/integration/collapsible_spec.js",
     "cypress:open": "cypress open",
+    "deploy": "gulp buildDocs && npx gh-pages -d docs",
     "prepublishOnly": "npm run build"
   },
   "author": "Indiana University",
   "license": "BSD-3-Clause",
   "dependencies": {},
   "devDependencies": {
-    "autoprefixer": "^8.5.0",
+    "autoprefixer": "^9.5.0",
     "browser-sync": "^2.26.3",
-    "cypress": "^3.1.5",
-    "del": "^3.0.0",
+    "cypress": "^3.2.0",
+    "del": "^4.0.0",
+    "gh-pages": "^2.0.1",
     "gulp": "^4.0.0",
     "gulp-cssnano": "^2.1.3",
     "gulp-header": "^2.0.7",
-    "gulp-postcss": "^7.0.1",
+    "gulp-postcss": "^8.0.0",
     "gulp-rename": "^1.4.0",
     "gulp-sass": "^4.0.2",
-    "gulp-uglify": "^3.0.1",
+    "gulp-uglify": "^3.0.2",
     "pump": "^3.0.0",
-    "rivet-uits": "^1.2.1"
+    "rivet-uits": "^1.3.0"
   }
 }
