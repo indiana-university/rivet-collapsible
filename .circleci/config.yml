@@ -18,12 +18,12 @@ aliases:
   # Cache Management
   - &restore-node-modules
     keys:
-      - v1-node-modules-{{ checksum "package.json" }}
+      - v2-node-modules-{{ checksum "package.json" }}
 
   - &save-node-modules
     paths:
       - node_modules
-    key: v1-node-modules-{{ checksum "package.json" }}
+    key: v2-node-modules-{{ checksum "package.json" }}
 
   # Branch Filtering
   - &filter-only-master
@@ -44,7 +44,7 @@ aliases:
 defaults: &defaults
   working_directory: ~/rivet-collapsible
   docker:
-    - image: circleci/node:7.10
+    - image: circleci/node:latest
 
 jobs:
   build:
@@ -60,7 +60,7 @@ jobs:
       - run:
           name: Install dependencies
           command: npm install
-
+      
       # Save cache settings
       - save_cache: *save-node-modules
 
@@ -139,6 +139,25 @@ jobs:
           name: Publish production package
           command: bash scripts/publish_prod.sh
 
+  publish_docs:
+    <<: *defaults
+    steps:
+      - checkout
+      # Download and cache dependencies
+      - restore_cache: *restore-node-modules
+      # Install dependencies
+      - run:
+          name: Install dependencies
+          command: npm install
+      # Save cache settings
+      - save_cache: *save-node-modules
+      - run:
+          name: Publish docs to gh-pages
+          command: |
+            git config --global user.email "iubot@iu.edu"
+            git config --global user.name "iubot"
+            npm run deploy
+
 workflows:
   version: 2
   build-test:
@@ -156,5 +175,10 @@ workflows:
       - publish_production_package:
           requires:
             - test
+          filters: *filter-only-master
+          context: iubot
+      - publish_docs:
+          requires:
+            - publish_production_package
           filters: *filter-only-master
           context: iubot
