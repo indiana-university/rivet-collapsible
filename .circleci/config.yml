@@ -63,12 +63,7 @@ jobs:
 
       # Save cache settings
       - save_cache: *save-node-modules
-
-      # Download new binding
-      - run:
-          name: Rebuild node-sass
-          command: npm rebuild node-sass
-
+      
       # Build!
       - run:
           name: Build components
