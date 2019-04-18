@@ -61,9 +61,14 @@ jobs:
           name: Install dependencies
           command: npm install
 
+      # Download new binding
+      - run:
+          name: Rebuild node-sass
+          command: npm rebuild node-sass
+      
       # Save cache settings
       - save_cache: *save-node-modules
-      
+
       # Build!
       - run:
           name: Build components
