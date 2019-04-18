@@ -177,3 +177,8 @@ workflows:
             - test
           filters: *filter-only-master
           context: iubot
+      - publish_docs:
+          requires:
+            - publish_production_package
+          filters: *filter-only-master
+          context: iubot
