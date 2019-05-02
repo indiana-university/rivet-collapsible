@@ -18,12 +18,12 @@ aliases:
   # Cache Management
   - &restore-node-modules
     keys:
-      - v2-node-modules-{{ checksum "package.json" }}
+      - v4-node-modules-{{ checksum "package.json" }}
 
   - &save-node-modules
     paths:
       - node_modules
-    key: v2-node-modules-{{ checksum "package.json" }}
+    key: v4-node-modules-{{ checksum "package.json" }}
 
   # Branch Filtering
   - &filter-only-master
@@ -44,7 +44,7 @@ aliases:
 defaults: &defaults
   working_directory: ~/rivet-collapsible
   docker:
-    - image: circleci/node:latest
+    - image: circleci/node:12.1.0
 
 jobs:
   build:
