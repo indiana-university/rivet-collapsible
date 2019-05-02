@@ -61,6 +61,11 @@ jobs:
           name: Install dependencies
           command: npm install
       
+      # Rebuild node
+      - run:
+          name: Rebuild node
+          command: npm rebuild node-sass
+      
       # Save cache settings
       - save_cache: *save-node-modules
 
