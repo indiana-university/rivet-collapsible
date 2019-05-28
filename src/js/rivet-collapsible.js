@@ -81,7 +81,7 @@
    * @param {Function} callback
    */
   var close = function (collapsibleButton, callback) {
-    collapsibleButton.setAttribute('aria-exapnded', 'false');
+    collapsibleButton.setAttribute('aria-expanded', 'false');
 
     var content = document.getElementById(
       collapsibleButton.getAttribute(DATA_ATTR)
