@@ -43,7 +43,7 @@ if (!Element.prototype.closest) {
 ```
 
 #### 2. Add the markup to your HTML
-It is possible to either show or hide the collapsible content by default. To hide the the content by default set the `aria-exapanded` attribute on the `<button>` element inside the `.rvt-collapsible__title` element to `false`, then set the `aria-hidden` attribute on the `.rvt-collapsible__content` element to "true". You can hide the collapsible content by default by doing the opposite and setting `aria-exapnded` to a value of `true` and `aria-hidden` to a value of `false`.
+It is possible to either show or hide the collapsible content by default. To hide the the content by default set the `aria-expanded` attribute on the `<button>` element inside the `.rvt-collapsible__title` element to `false`, then set the `aria-hidden` attribute on the `.rvt-collapsible__content` element to "true". You can hide the collapsible content by default by doing the opposite and setting `aria-expanded` to a value of `true` and `aria-hidden` to a value of `false`.
 
 Lastly, you need to make sure to add the `[data-collapsible]` to the button toggle element with a value that matches the `id` attribute of the content that yo uwant to exapand/collapse.
 

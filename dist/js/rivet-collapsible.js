@@ -3,7 +3,7 @@
  * Copyright (C) 2018 The Trustees of Indiana University
  * SPDX-License-Identifier: BSD-3-Clause
 
- * rivet-collapsible - @version 0.2.8
+ * rivet-collapsible - @version 0.2.9-rc.297
  */
 
 /**
@@ -89,7 +89,7 @@
    * @param {Function} callback
    */
   var close = function (collapsibleButton, callback) {
-    collapsibleButton.setAttribute('aria-exapnded', 'false');
+    collapsibleButton.setAttribute('aria-expanded', 'false');
 
     var content = document.getElementById(
       collapsibleButton.getAttribute(DATA_ATTR)
