@@ -13,6 +13,7 @@
   } else {
     root.Collapsible = factory(root);
   }
+  // eslint-disable-next-line no-unused-vars
 })(typeof global !== 'undefined' ? global : typeof window !== 'undefined' ? window : this, function (window) {
 
   'use strict';
@@ -130,6 +131,7 @@
        * In this case a plain collapsible will do.
        */
       if (accordionToggles.length < 2) {
+        // eslint-disable-next-line no-console
         console.warn('An accordions should contain *at least two* accordion toggles with the "data-collapsible" attribute');
       }
 
