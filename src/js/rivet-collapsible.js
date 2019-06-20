@@ -151,12 +151,10 @@
       switch (event.keyCode) {
         // Up arrow key
         case keys.up:
-          if (!event.target.hasAttribute(DATA_ATTR)) {
-            return
+          // If the current active toggle is the first or not an accordion bail
+          if (!event.target.hasAttribute(DATA_ATTR) || accordionTogglesArr[prevToggle] === undefined) {
+            return;
           } else {
-            // If the current active toggle is the first bail
-            if (accordionTogglesArr[prevToggle] === undefined) return;
-
             // Focus the previous toggle
             accordionTogglesArr[prevToggle].focus();
           }
@@ -164,12 +162,10 @@
 
         // Down arrow key
         case keys.down:
-          if (!event.target.hasAttribute(DATA_ATTR)) {
-            return
+          // If the current active toggle is the last or not an accordion bail
+          if (!event.target.hasAttribute(DATA_ATTR) || accordionTogglesArr[nextToggle] === undefined) {
+            return;
           } else {
-            // If the current active toggle is the last bail
-            if (accordionTogglesArr[nextToggle] === undefined) return;
-
             // Focus the next toggle
             accordionTogglesArr[nextToggle].focus();
           }
