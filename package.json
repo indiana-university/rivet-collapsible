@@ -1,6 +1,6 @@
 {
   "name": "rivet-collapsible",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "description": "An expand-and-collapse widget for Rivet",
   "repository": {
     "type": "git",
@@ -38,6 +38,6 @@
     "gulp-sass": "^4.0.2",
     "gulp-uglify": "^3.0.2",
     "pump": "^3.0.0",
-    "rivet-uits": "^1.6.0"
+    "rivet-uits": "^1.7.1"
   }
 }
