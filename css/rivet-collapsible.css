@@ -23,6 +23,7 @@
 
 .rvt-collapsible__title button svg {
   margin-right: 0.5rem;
+  flex-shrink: 0;
 }
 
 .rvt-collapsible__title button[aria-expanded="true"] svg {
