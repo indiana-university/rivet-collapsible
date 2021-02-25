@@ -3,7 +3,7 @@
  * Copyright (C) 2018 The Trustees of Indiana University
  * SPDX-License-Identifier: BSD-3-Clause
 
- * rivet-collapsible - @version 0.2.11
+ * rivet-collapsible - @version 0.2.13
  */
 
 .rvt-collapsible__title {
@@ -36,6 +36,8 @@
 
 .rvt-collapsible__title button svg {
   margin-right: 0.5rem;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
 }
 
 .rvt-collapsible__title button[aria-expanded="true"] svg {
