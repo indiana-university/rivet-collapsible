@@ -1,3 +1,5 @@
+> **The Rivet collapsible is deprecated**. Please use the Rivet 2 [disclosure](https://rivet.iu.edu/components/disclosure/) or [accordion](https://rivet.iu.edu/components/accordion/) components instead.
+
 ## rivet-collapsible
 An accessible expand-and-collapse widget for Rivet
 
